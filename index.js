@@ -237,7 +237,7 @@ function traverseUp( filePath, Paths, Ancestors ){
 function collectAncestors( Ancestors, Paths ){
 	Ancestors.Starts.forEach(function( start, i ){
 		Ancestors.Ends[i].forEach(function( end ){
-			addIfUnique( start+end, Paths );
+			addIfUnique( path.normalize(path.resolve(start+end)), Paths );
 		})
 	});
 	Ancestors.Starts = [];
