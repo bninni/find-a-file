@@ -115,6 +115,8 @@ const path = require('path'),
 //Synchronously test if the given filepath is a file or not
 function isFile( filePath ){
 	try{
+		console.log( filePath )
+		console.log( fs.statSync( filePath ) )
 		return fs.statSync( filePath ).isFile();
 	}
 	catch(e){
