@@ -1,3 +1,5 @@
+var process = require('process');
+
 //Set the directory to be 'test'
 process.chdir('test')
 
@@ -115,7 +117,7 @@ vows.describe('Test').addBatch({
 		},
 		'Can Load Found File' : function (){
 			var finder = FindAFile();
-			assert.doesNotThrow( function(){ finder.find('test').value.loadSync() } )
+			assert.doesNotThrow( function(){ finder.find('../index').value.loadSync() } )
 		}
 	}
 }).exportTo(module);

@@ -24,13 +24,13 @@ var FindAFile = require('find-a-file')
 
 The module exports a function which will create a **Finder** based in the current directory.
 
-You can then synchronously find a file path relative to the location stored within that **Finder** based provided parameters.
+You can then synchronously find a file path relative to the location stored within that **Finder** based on provided parameters.
 
 The parameters are as follows:
 
   * **Base** - (_StringTree_) - The StringTree representation of the Base directories to use to search for Files
     * **Default** - `'$CURRENT'`
-  * **Format** - (_StringTree_) - The StringTree representation of the Format followed to create a file path from the user input
+  * **Format** - (_StringTree_) - The StringTree representation of the file paths to search
     * **Default** - `['$BASE','$DIR','$NAME$EXT']`
 	* **Note -** - All elements within this StringTree will be automatically joined with a slash (\\)
   * **Extension** - (_String_) - The extension to use to create a file path if one was not provided
@@ -135,7 +135,7 @@ file = finder.find('index')
 /*
 Since we are using the new 'finder', it will check the following locations:
 ['$CURRENT\index.txt']
-where '$CURRENT' is now the '<previous $CURRENT>\data\'
+where '$CURRENT' is now '<previous $CURRENT>\data\'
 */
 
 //To get the desired file from the new finder:
@@ -147,10 +147,10 @@ file = finder.find('..\index.js')
 A file can be loaded either synchronously or asynchronously:
 
 **.load( callback )**
-  *  Will run rs.readFile( <path>, <encoding>, <callback> )
+  *  Will run `fs.readFile( <filepath>, <encoding>, <callback> )`
 
 **.loadSync()**
-  *  Will return the result of rs.readFileSync( <path>, <encoding> )
+  *  Will return the result of `fs.readFileSync( <filepath>, <encoding> )`
 
 ## Adding Bases
 
@@ -195,13 +195,13 @@ var finder = FindAFile({
   ]
 })
 
-finder.find('index')
+finder.find('test')
 
 /*
 Will check the following locations:
 [
-  '$CURRENT\node_modules\index.js',
-  '$CURRENT\node_modules\index\index.js'
+  '$CURRENT\node_modules\test.js',
+  '$CURRENT\node_modules\test\index.js'
 ]
 */
 ```
