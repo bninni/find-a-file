@@ -1,0 +1,32 @@
+{
+  "name": "find-a-file",
+  "version": "1.0.0",
+  "description": "Create a list of possible file locations based on user defined arguments",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "cd test && vows test.js --spec && cd .."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bninni/find-a-file.git"
+  },
+  "keywords": [
+  ],
+  "dependencies": {
+    "basic-functions": "*",
+    "resolution": "*",
+	"string-trees": "*"
+  },
+  "devDependencies": {
+    "vows": "~0.8.1"
+  },
+  "author": "Brian Ninni <brian@ninni.io> (http://ninni.io)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/bninni/find-a-file/issues"
+  },
+  "homepage": "https://github.com/bninni/find-a-file#readme"
+}
