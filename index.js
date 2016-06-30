@@ -17,7 +17,7 @@ A way to set the default encoding and extensions
 Use:
 
 StringTrees = require('string-trees').setDefaults({
-	delimiter : '\\'
+	delimiter : '/'
 })
 
 Also in StringTrees - sort the keys by length so the largest strings get matched first
@@ -30,7 +30,7 @@ const path = require('path'),
 	Resolution = require('resolution'),
 	StringTrees = require('string-trees'),
 	StringTreesOptions = {
-		delimiter : '\\'
+		delimiter : '/'
 	},
 	//from https://github.com/nodejs/node/blob/master/lib/buffer.js
 	ValidEncodings = [
@@ -55,7 +55,7 @@ const path = require('path'),
 	FileDir = (function(){
 		function FileDir( Options ){
 			this.Initial = path.resolve('.');
-			this.Location = this.Initial + '\\.';
+			this.Location = this.Initial + '/.';
 			this.Base = Options.Base;
 			this.Format = Options.Format;
 			this.Encoding = Options.Encoding;
@@ -115,7 +115,6 @@ const path = require('path'),
 //Synchronously test if the given filepath is a file or not
 function isFile( filePath ){
 	try{
-		console.log( filePath )
 		return fs.statSync( filePath ).isFile();
 	}
 	catch(e){
