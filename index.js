@@ -115,8 +115,6 @@ const path = require('path'),
 //Synchronously test if the given filepath is a file or not
 function isFile( filePath ){
 	try{
-		console.log( filePath )
-		console.log( fs.statSync( filePath ) )
 		return fs.statSync( filePath ).isFile();
 	}
 	catch(e){
@@ -183,7 +181,7 @@ function addIfUnique( filePath, Paths ){
 function walkIfUnique( start, end, Paths, Ancestors ){
 	var index;
 
-	if( Paths.indexOf( path.resolve(start + '/' + end) ) >= 0 ){
+	if( Paths.indexOf( path.normalize(path.resolve(start + '/' + end)) ) >= 0 ){
 		return false;
 	}
 	
@@ -263,7 +261,7 @@ function getPaths( Format, Map, isAbsolute ){
 		
 		if( isAbsolute && (filePath.indexOf('$CURRENT') >= 0 || filePath.indexOf('$INITIAL') >= 0) ) return;
 	
-		filePath = path.resolve( filePath )
+		filePath = path.normalize(path.resolve( filePath ))
 		
 		//If it contains a ^, then add all parent listings until a repeat is found
 		if( filePath.indexOf('^') >= 0 ){
