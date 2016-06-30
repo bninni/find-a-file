@@ -1,11 +1,8 @@
-var process = require('process');
-
 //Set the directory to be 'test'
 process.chdir('test')
 
 var FindAFile = require('../index.js'),
-	vows = require('vows'),
-    assert = require('assert');
+	vows = require('vows');
 
 vows.describe('Test').addBatch({
     'In the Current Directory': {
@@ -117,7 +114,7 @@ vows.describe('Test').addBatch({
 		},
 		'Can Load Found File' : function (){
 			var finder = FindAFile();
-			assert.doesNotThrow( function(){ finder.find('../index').value.loadSync() } )
+			assert.doesNotThrow( function(){ finder.find('test').value.loadSync() } )
 		}
 	}
 }).exportTo(module);
