@@ -1,7 +1,10 @@
+//var process = require('process');
+
 //Set the directory to be 'test'
 process.chdir('test')
 
 var FindAFile = require('../index.js'),
+   //assert = require('assert'),
 	vows = require('vows');
 
 vows.describe('Test').addBatch({

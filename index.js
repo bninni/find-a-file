@@ -23,9 +23,9 @@ StringTrees = require('string-trees').setDefaults({
 Also in StringTrees - sort the keys by length so the largest strings get matched first
 	
 */
-const path = require('path'),
-	fs = require('fs'),
-	process = require('process'),
+const //path = require('path'),
+	//fs = require('fs'),
+	//process = require('process'),
 	just = require('basic-functions'),
 	Resolution = require('resolution'),
 	StringTrees = require('string-trees'),
