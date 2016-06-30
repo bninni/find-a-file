@@ -1,5 +1,3 @@
-var process = require('process');
-
 //Set the directory to be 'test'
 process.chdir('test')
 

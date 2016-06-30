@@ -77,10 +77,10 @@ First, create a **Finder**
 var finder = FindAFile()
 ```
 
-To find a file within the directory:
+To find a file, use:
 
 **.find( _filepath_ )**
-  * **_filepath_** (_String_) - The input to use to find a valid file path (based on the **Finder's** *Format** Option)
+  * **_filepath_** (_String_) - The input to use to find a valid file path
   
 Using the built-in **path** module, the provided **filepath** will be separated into 3 parameters:
   * **dir** - The directory in which the will reside
@@ -98,7 +98,7 @@ var file = finder.find('index')
 Since only the default parameters were used, the program will look for a file at the following locations:
 
 ```javascript
-['$CURRENT\\index.js']
+['$CURRENT\index.js']
 ```
 
 It returns a **Resolution** object, which is either _resolved_ to another **Finder** or _rejected_ with an **Error**
@@ -121,11 +121,11 @@ The new **Finder** object will copy the parameters from the Initial **Finder** o
 Here is another example in which the found file is in a different directory:
 
 ```javascript
-file = finder.find('data\\names.txt')
+file = finder.find('data\names.txt')
 
 /*
 Will check the following locations:
-['$CURRENT\\data\\names.txt']
+['$CURRENT\data\names.txt']
 */
 
 finder = file.value
@@ -133,14 +133,109 @@ finder = file.value
 file = finder.find('index')
 
 /*
-Since we are using a new 'finder', it will check the following locations:
-['$CURRENT\\data\\index.txt']
+Since we are using the new 'finder', it will check the following locations:
+['$CURRENT\index.txt']
+where '$CURRENT' is now the '<previous $CURRENT>\data\'
 */
 
 //To get the desired file from the new finder:
-file = finder.find('..\\index.js')
-
+file = finder.find('..\index.js')
 ```
+
+## Loading a File
+
+A file can be loaded either synchronously or asynchronously:
+
+**.load( callback )**
+  *  Will run rs.readFile( <path>, <encoding>, <callback> )
+
+**.loadSync()**
+  *  Will return the result of rs.readFileSync( <path>, <encoding> )
+
+## Adding Bases
+
+You can set the **Base** directories to use to find a file:
+
+```javascript
+var finder = FindAFile({
+  Base : [[
+    ['C:','F:','$CURRENT'],
+    ['home','other']
+  ]]
+})
+
+finder.find('index')
+
+/*
+Will check the following locations:
+[
+  'C:\home\index.js',
+  'C:\other\index.js',
+  'F:\home\index.js',
+  'F:\other\index.js',
+  '$CURRENT\home\index.js',
+  '$CURRENT\other\index.js'
+]
+*/
+```
+
+## Using a Different Format
+
+You can set the **Format** to use to find a file:
+
+```javascript
+var finder = FindAFile({
+  Format : [
+    '$CURRENT',
+    'node_modules',
+	'$DIR',
+    ['$NAME$EXT',[
+	  ['$NAME','index$EXT']
+	]
+  ]
+})
+
+finder.find('index')
+
+/*
+Will check the following locations:
+[
+  '$CURRENT\node_modules\index.js',
+  '$CURRENT\node_modules\index\index.js'
+]
+*/
+```
+
+You can insert a `^` anywhere within the the filepath to check all parent directories as well
+
+It will stop searching when there is no parent directory or the parent directory has already been searched
+
+```javascript
+var finder = FindAFile({
+  Format : [
+    '$BASE^',
+    'node_modules',
+	'$NAME',
+	'package.json'
+  ]
+})
+
+finder.find('myModule')
+
+/*
+Will check the following locations:
+[
+  '$CURRENT\node_modules\myModule\package.json',
+  '$CURRENT\..\node_modules\myModule\package.json',
+  '$CURRENT\..\..\node_modules\myModule\package.json',
+  ...
+]
+*/
+```
+
+## License
+
+### MIT
 
 
 
