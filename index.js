@@ -7,6 +7,8 @@ Allow 'Options' to be passed through the 'find' function
 
 Allow 'Extension' to be a StringTree ?
 
+Allow wildcards?
+
 Create a public Finder class
 
 A way to set the default encoding and extensions

@@ -1,3 +1,8 @@
+var process = require('process');
+
+//Set the directory to be 'test'
+process.chdir('test')
+
 var FindAFile = require('../index.js'),
 	vows = require('vows'),
     assert = require('assert');
