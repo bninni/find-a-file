@@ -1,37 +1,20 @@
 /*
+Copyright Brian Ninni 2016
+*/
+/*
 TODO:
-
-Make sure the 'Location' strings are formatted properly? (i.e. remove all '.' and '..')
-
 Allow 'Options' to be passed through the 'find' function
-
-Allow 'Extension' to be a StringTree ?
-
-Allow wildcards?
-
-Create a public Finder class
-
-A way to set the default encoding and extensions
-	-A way for it to run async?
-	
-Use:
-
-StringTrees = require('string-trees').setDefaults({
-	delimiter : '/'
-})
-
-Also in StringTrees - sort the keys by length so the largest strings get matched first
-	
+Allow 'Extension' to be a StringTree
+Allow wildcards
 */
 const path = require('path'),
 	fs = require('fs'),
 	process = require('process'),
 	just = require('basic-functions'),
 	Resolution = require('resolution'),
-	StringTrees = require('string-trees'),
-	StringTreesOptions = {
+	StringTrees = require('string-trees').defineSettings({
 		delimiter : '/'
-	},
+	}),
 	//from https://github.com/nodejs/node/blob/master/lib/buffer.js
 	ValidEncodings = [
 		'ascii',
@@ -111,6 +94,19 @@ const path = require('path'),
 
 		return FilePath;
 	})();
+	
+
+function Finder( data ){
+	this.find = function( filepath ){
+		return data.find( filepath )
+	}
+	this.load = function( callback ){
+		return data.load( callback )
+	}
+	this.loadSync = function(){
+		return data.loadSync()
+	}
+}
 	
 //Synchronously test if the given filepath is a file or not
 function isFile( filePath ){
@@ -257,7 +253,7 @@ function getPaths( Format, Map, isAbsolute ){
 		Paths = [];
 	
 	//Create a list of paths from the Format StringTree and the Map, and then handle each
-	StringTrees( Format, Map, StringTreesOptions ).forEach(function( filePath ){
+	StringTrees( Format, Map ).forEach(function( filePath ){
 		
 		if( isAbsolute && (filePath.indexOf('$CURRENT') >= 0 || filePath.indexOf('$INITIAL') >= 0) ) return;
 	
@@ -308,12 +304,12 @@ function find( filePath ){
 	//Traverse the Paths until a valid path is Found
 	for(i=0;i<Paths.length;i++){
 		if( isFile( Paths[i] ) ){
-			return Resolution.resolve( new FilePath( Paths[i], this.Initial, {
+			return Resolution.resolve( new Finder( new FilePath( Paths[i], this.Initial, {
 				Base : this.Base,
 				Format : this.Format,
 				Extension : this.Extension,
 				Encoding : this.Encoding
-			}) );
+			})));
 		}
 	}
 	
@@ -321,7 +317,7 @@ function find( filePath ){
 }
 
 function FindAFile( opts ){
-	return new FileDir( createSettingsObj( opts, Settings ) );
+	return new Finder(new FileDir( createSettingsObj( opts, Settings ) ));
 };
 
 FindAFile.defineSettings = function( obj ){
