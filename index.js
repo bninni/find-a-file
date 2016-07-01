@@ -6,6 +6,7 @@ TODO:
 Allow 'Options' to be passed through the 'find' function
 Allow 'Extension' to be a StringTree
 Allow wildcards
+Add in 'write' and 'writeSync'
 */
 const path = require('path'),
 	fs = require('fs'),
