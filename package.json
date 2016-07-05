@@ -1,6 +1,6 @@
 {
   "name": "find-a-file",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Create a list of possible file locations based on user defined arguments",
   "main": "index.js",
   "directories": {
@@ -14,6 +14,20 @@
     "url": "git+https://github.com/bninni/find-a-file.git"
   },
   "keywords": [
+	"find",
+	"files",
+	"by",
+	"path",
+	"relative",
+	"file",
+	"finder",
+	"file",
+	"loader",
+	"file",
+	"search",
+	"location",
+	"directories",
+	"template"
   ],
   "dependencies": {
     "basic-functions": "*",
