@@ -1,0 +1,63 @@
+File Finder:
+Opts:
+Async
+Base dirs
+Base extensions
+Start dir (if not '.')
+Paths
+
+Raw/dir/name/ext validation/modifier function?
+-single function with those 4 arguments, returns a string
+-if no string, then invalid
+
+Path vars:
+$startDir
+$baseDir
+-all dirs in base dir array and start dir
+$baseExt
+-all exts in base ext array
+$ancestors
+ -all does between parentDir and the base dir
+$children
+-all dirs in parentDir
+$descendants
+-all nested dirs
+$dir
+-given dir
+$name
+-given name
+$ext
+-given ext
+$parentDir
+$parentExt
+
+If no extension is included, look for package.json
+
+Descendants, ancestors can have depth quantifier{1}
+
+Descendants is based off of the dir that appears before it in the string
+
+If dir given, only use strings that use $dir
+-unless overrideDir = true
+
+If ext given, only use strings that use $ext
+-unless overrideExt = true
+
+Only use strings that use $name unless overrideName = true
+
+Can be string or array of strings
+-if array of strings, then all get concatenated. In array, can have nested arrays of strings to produce multiple strings
+-can assign names to arrays, so { allExts : [.JS,.HTML.CSS]}
+and then can use $allExts
+
+$dir\$name$ext
+$dir\$name$parentExt
+$dir\$name\index$parentExt
+$dir\$name\$name$parentExt
+
+Or:
+[[$dir,$ancestors],\$name,[$ext,$parentExt,\index$parentExt,\$name$parentExt]
+
+Combine array, remove prohibited overrides, replace all, remove duplicates, and test each
+
+If path fount, returns new file path object with the new base, dir, and ext stored

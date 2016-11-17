@@ -32,7 +32,7 @@ The parameters are as follows:
     * **Default** - `'$CURRENT'`
   * **Format** - (_StringTree_) - The StringTree representation of the file paths to search
     * **Default** - `['$BASE','$DIR','$NAME$EXT']`
-	* **Note -** - All elements within this StringTree will be automatically joined with a slash (\\)
+	* **Note** - All elements within this StringTree will be automatically joined with a slash (/)
   * **Extension** - (_String_) - The extension to use to create a file path if one was not provided
     * **Default** - `'.js'`
   * **Encoding** - (_String_) - The encoding to use when loading a file

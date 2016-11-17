@@ -98,6 +98,7 @@ const path = require('path'),
 	
 
 function Finder( data ){
+	this.Relative = path.relative( data.Initial, data.Location );
 	this.find = function( filepath ){
 		return data.find( filepath )
 	}
